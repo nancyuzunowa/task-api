@@ -1,0 +1,31 @@
+CREATE DATABASE TaskAPI
+GO
+
+USE TaskAPI
+GO
+
+CREATE SCHEMA TaskAppSchema
+GO
+
+-- next ones are created by ChatGPT (copy/paste only :) )
+CREATE TABLE TaskAppSchema.Users (
+    UserId INT PRIMARY KEY IDENTITY(1,1),
+    Email VARCHAR(255) NOT NULL,
+    FirstName VARCHAR(255) NOT NULL,
+    LastName VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE TaskAppSchema.Tasks (
+    TaskId INT PRIMARY KEY IDENTITY(1,1),
+    Title VARCHAR(255) NOT NULL,
+    Description VARCHAR(MAX) NOT NULL,
+    DateCreated DATETIME NOT NULL DEFAULT GETDATE(),
+    DueDate DATETIME NOT NULL,
+    DateUpdated DATETIME NOT NULL DEFAULT GETDATE(),
+    Assignee INT NOT NULL,
+    Status INT NOT NULL,
+    Estimate VARCHAR(50) NOT NULL,
+
+    CONSTRAINT FK_Tasks_Users_Assignee
+        FOREIGN KEY (Assignee) REFERENCES TaskAppSchema.Users(UserId)
+);
