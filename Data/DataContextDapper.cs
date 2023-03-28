@@ -6,44 +6,35 @@ namespace TaskAPI.Data
 {
     public class DataContextDapper
     {
-        private readonly string ConnectionString = "DefualtConnection";
-        private readonly IConfiguration _config;
+        private readonly string connectionString;
 
-        public DataContextDapper(IConfiguration config)
+        public DataContextDapper(IConfiguration configuration)
         {
-            _config = config;
+            connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public IEnumerable<T> LoadData<T>(string sql, DynamicParameters parameters)
+        public IEnumerable<T> LoadData<T>(string sql, DynamicParameters? parameters = null)
         {
-            using (IDbConnection cnn = new SqlConnection(_config.GetConnectionString(ConnectionString)))
-            {
-                return cnn.Query<T>(sql, parameters);
-            }
+            IDbConnection dbConnection = new SqlConnection(connectionString);
+            return dbConnection.Query<T>(sql, parameters);
         }
 
-        public T LoadDataSingle<T>(string sql, DynamicParameters parameters)
+        public T LoadDataSingle<T>(string sql, DynamicParameters? parameters = null)
         {
-            using (IDbConnection cnn = new SqlConnection(_config.GetConnectionString(ConnectionString)))
-            {
-                return cnn.QuerySingle<T>(sql, parameters);
-            }
+            IDbConnection dbConnection = new SqlConnection(connectionString);
+            return dbConnection.QuerySingle<T>(sql, parameters);
         }
 
-        public int SaveDataWithRowCount<T>(string sql, DynamicParameters parameters)
+        public int SaveDataWithRowCount<T>(string sql, DynamicParameters? parameters = null)
         {
-            using (IDbConnection cnn = new SqlConnection(_config.GetConnectionString(ConnectionString)))
-            {
-                return cnn.Execute(sql, parameters);
-            }
+            IDbConnection dbConnection = new SqlConnection(connectionString);
+            return dbConnection.Execute(sql, parameters);
         }
 
-        public bool SaveData<T>(string sql, DynamicParameters parameters)
+        public bool SaveData<T>(string sql, DynamicParameters? parameters = null)
         {
-            using (IDbConnection cnn = new SqlConnection(_config.GetConnectionString(ConnectionString)))
-            {
-                return cnn.Execute(sql, parameters) > 0;
-            }
+            IDbConnection dbConnection = new SqlConnection(connectionString);
+            return dbConnection.Execute(sql, parameters) > 0;
         }
     }
 }

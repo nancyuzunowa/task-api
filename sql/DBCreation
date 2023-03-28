@@ -29,3 +29,27 @@ CREATE TABLE TaskAppSchema.Tasks (
     CONSTRAINT FK_Tasks_Users_Assignee
         FOREIGN KEY (Assignee) REFERENCES TaskAppSchema.Users(UserId)
 );
+
+-- ChatGPT was so kind to give me this script to fill my table :)  
+INSERT INTO TaskAppSchema.Users (Email, FirstName, LastName)
+VALUES
+('jane.doe@example.com', 'Jane', 'Doe'),
+('john.smith@example.com', 'John', 'Smith'),
+('alice.johnson@example.com', 'Alice', 'Johnson'),
+('bob.jackson@example.com', 'Bob', 'Jackson'),
+('emily.young@example.com', 'Emily', 'Young'),
+('frank.wilson@example.com', 'Frank', 'Wilson'),
+('lisa.chen@example.com', 'Lisa', 'Chen'),
+('james.brown@example.com', 'James', 'Brown'),
+('sarah.miller@example.com', 'Sarah', 'Miller'),
+('steve.garcia@example.com', 'Steve', 'Garcia'),
+('jennifer.hall@example.com', 'Jennifer', 'Hall'),
+('david.nguyen@example.com', 'David', 'Nguyen'),
+('jessica.wang@example.com', 'Jessica', 'Wang'),
+('robert.kim@example.com', 'Robert', 'Kim'),
+('samantha.lee@example.com', 'Samantha', 'Lee'),
+('kevin.patel@example.com', 'Kevin', 'Patel'),
+('amanda.cruz@example.com', 'Amanda', 'Cruz'),
+('michael.taylor@example.com', 'Michael', 'Taylor'),
+('karen.ng@example.com', 'Karen', 'Ng'),
+('ryan.mitchell@example.com', 'Ryan', 'Mitchell');

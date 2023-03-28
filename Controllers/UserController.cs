@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using TaskAPI.Data;
+using TaskAPI.Models;
 
 namespace TaskAPI.Controllers
 {
@@ -6,15 +8,24 @@ namespace TaskAPI.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
+        private readonly DataContextDapper _dapper;
+
         public UserController(IConfiguration config)
         {
-            Console.WriteLine(config.GetConnectionString("DefaultConnection"));
+            _dapper = new DataContextDapper(config);
+        }
+
+        [HttpGet("TestConnection")]
+        public DateTime GetDateTime()
+        {
+            return _dapper.LoadDataSingle<DateTime>("SELECT GETDATE()");
         }
 
         [HttpGet]
-        public string GetUsers()
+        public IEnumerable<User> GetUsers()
         {
-            return "GetUsers";
+            string sql = "SELECT * FROM TaskAppSchema.Users";
+            return _dapper.LoadData<User>(sql);
         }
     }
 }
